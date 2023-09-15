@@ -3,8 +3,6 @@ package org.example;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.nio.charset.IllegalCharsetNameException;
-
 
 public class Chandrayaan3_Test {
 
@@ -287,5 +285,77 @@ public class Chandrayaan3_Test {
         Assert.assertEquals(0,c.getXCoordinate());
         Assert.assertEquals(1,c.getYCoordinate());
         Assert.assertEquals(-1,c.getZCoordinate());
+    }
+
+    @Test
+    public void FFFULR(){
+        Chandrayaan3 c = new Chandrayaan3();
+        c.move('f');
+        c.move('f');
+        c.move('f');
+        c.turn('u');
+        c.turn('l');
+        c.turn('r');
+        int currentDirection = c.getDirection();
+        Assert.assertEquals(0,c.getXCoordinate());
+        Assert.assertEquals(3,c.getYCoordinate());
+        Assert.assertEquals(0,c.getZCoordinate());
+        Assert.assertEquals(0,currentDirection);
+    }
+
+    @Test
+    public void FULRDB(){
+        Chandrayaan3 c = new Chandrayaan3();
+        c.setXCoordinate(-1);
+        c.setYCoordinate(-1);
+        c.setZCoordinate(-1);
+        c.setDirection(2);
+
+        c.move('f');
+        c.turn('u');
+        c.turn('l');
+        c.turn('r');
+        c.turn('d');
+        c.move('b');
+
+        Assert.assertEquals(-1,c.getXCoordinate());
+        Assert.assertEquals(-1,c.getYCoordinate());
+        Assert.assertEquals(-1,c.getZCoordinate());
+        Assert.assertEquals(2,c.getDirection());
+    }
+
+    @Test
+    public void FRU(){
+        Chandrayaan3 c = new Chandrayaan3();
+        c.move('f');
+        c.turn('r');
+        c.turn('u');
+
+        Assert.assertEquals(0,c.getXCoordinate());
+        Assert.assertEquals(1,c.getYCoordinate());
+        Assert.assertEquals(0,c.getZCoordinate());
+        Assert.assertEquals(2,c.getUpDownDirection());
+    }
+
+    @Test
+    public void FRFULBD(){
+        Chandrayaan3 c = new Chandrayaan3();
+        c.setXCoordinate(3);
+        c.setYCoordinate(-2);
+        c.setZCoordinate(1);
+        c.setDirection(1);
+
+        c.move('f');
+        c.turn('r');
+        c.move('f');
+        c.turn('u');
+        c.turn('l');
+        c.move('b');
+        c.turn('d');
+
+        Assert.assertEquals(3,c.getXCoordinate());
+        Assert.assertEquals(-3,c.getYCoordinate());
+        Assert.assertEquals(1,c.getZCoordinate());
+        Assert.assertEquals(-2,c.getUpDownDirection());
     }
 }

@@ -105,16 +105,18 @@ public class Chandrayaan3 {
             throw new NullPointerException("Invalid Input");
         else if(command == 'l') {
             newDirection = (currentDirection - 1) % size;
+            setUpDownDirection(0);
         }
         else if(command == 'r'){
             newDirection = (currentDirection + 1) % size;
+            setUpDownDirection(0);
         }
         else if(command == 'u'){
-            setUpDownDirection(2);
+            setUpDownDirection(getUpDownDirection() + 2);
             return 'U';
         }
         else if(command == 'd'){
-            setUpDownDirection(-2);
+            setUpDownDirection(getUpDownDirection() - 2);
             return 'D';
         }
 
