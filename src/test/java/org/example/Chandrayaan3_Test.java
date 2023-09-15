@@ -80,25 +80,25 @@ public class Chandrayaan3_Test {
     public void moveAhead(){
         Chandrayaan3 c = new Chandrayaan3();
         char command = 'f';
-        int expectedX = c.getXCoordinate() + 1;
+        int expectedY = 1;
         c.move(command);
-        Assert.assertEquals(c.getXCoordinate(),expectedX);
+        Assert.assertEquals(c.getYCoordinate(),expectedY);
     }
 
     @Test
     public void moveBehind(){
         Chandrayaan3 c = new Chandrayaan3();
         char command = 'b';
-        int expectedX = c.getXCoordinate() - 1;
+        int expectedY = c.getYCoordinate() - 1;
         c.move(command);
-        Assert.assertEquals(c.getXCoordinate(),expectedX);
+        Assert.assertEquals(c.getYCoordinate(),expectedY);
     }
 
     @Test
     public void turnLeftOnce(){
         Chandrayaan3 c = new Chandrayaan3();
         char command = 'l';
-        char expectedDirection = 'W';
+        int expectedDirection = 3;
         c.turn(command);
         Assert.assertEquals(c.getDirection(),expectedDirection);
     }
@@ -190,8 +190,102 @@ public class Chandrayaan3_Test {
     }
 
     @Test
-    public void moveAccordingToDirection(){
+    public void turnLeftRight(){
         Chandrayaan3 c = new Chandrayaan3();
+        c.setDirection(0);
+        char expectedDirection = 'N';
+        c.turn('r');
+        char actualDirection = c.turn('l');
+        Assert.assertEquals(expectedDirection,actualDirection);
+    }
 
+    @Test
+    public void movingInEast(){
+        Chandrayaan3 c = new Chandrayaan3();
+        c.setDirection(1);
+        char command = 'f';
+        c.move(command);
+        int expectedX = 1;
+        int actualX = c.getXCoordinate();
+        Assert.assertEquals(expectedX,actualX);
+    }
+
+    @Test
+    public void movingInSouth(){
+        Chandrayaan3 c = new Chandrayaan3();
+        c.setDirection(2);
+        char command = 'f';
+        c.move(command);
+        int expectedY = -1;
+        int actualY = c.getYCoordinate();
+        Assert.assertEquals(expectedY,actualY);
+    }
+
+    @Test
+    public void movingInWest(){
+        Chandrayaan3 c = new Chandrayaan3();
+        c.setDirection(3);
+        char command = 'f';
+        c.move(command);
+        int expectedX = -1;
+        int actualX = c.getXCoordinate();
+        Assert.assertEquals(expectedX,actualX);
+    }
+
+    @Test
+    public void movingUp(){
+        Chandrayaan3 c = new Chandrayaan3();
+        c.setUpDownDirection(2);
+        char command = 'f';
+        c.move(command);
+        int expectedZ = 1;
+        int actualZ = c.getZCoordinate();
+        Assert.assertEquals(expectedZ,actualZ);
+    }
+
+    @Test
+    public void movingDown(){
+        Chandrayaan3 c = new Chandrayaan3();
+        c.setUpDownDirection(-2);
+        char command = 'f';
+        c.move(command);
+        int expectedZ = -1;
+        int actualZ = c.getZCoordinate();
+        Assert.assertEquals(expectedZ,actualZ);
+    }
+
+    @Test
+    public void turningUpAndLeft(){
+        Chandrayaan3 c = new Chandrayaan3();
+        c.turn('u');
+        c.turn('l');
+        int actualDirection = c.getDirection();
+        int expectedDirection = 3;
+        Assert.assertEquals(expectedDirection,actualDirection);
+    }
+
+    @Test
+    public void turningUpLeftRight(){
+        Chandrayaan3 c = new Chandrayaan3();
+        c.turn('u');
+        c.turn('l');
+        c.turn('r');
+        int actualDirection = c.getDirection();
+        int expectedDirection = 0;
+        Assert.assertEquals(expectedDirection,actualDirection);
+    }
+
+    @Test
+    public void FRUBL(){
+        Chandrayaan3 c = new Chandrayaan3();
+        c.move('f');
+        c.turn('r');
+        c.turn('u');
+        c.move('b');
+        c.turn('l');
+        Assert.assertEquals(0,c.getDirection());
+        Assert.assertEquals(0,c.getXCoordinate());
+        Assert.assertEquals(1,c.getYCoordinate());
+        Assert.assertEquals(-1,c.getZCoordinate());
     }
 }

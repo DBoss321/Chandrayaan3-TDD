@@ -9,6 +9,15 @@ public class Chandrayaan3 {
     int XCoordinate, YCoordinate, ZCoordinate;
     int Direction=0;
 
+    public int getUpDownDirection() {
+        return UpDownDirection;
+    }
+
+    public void setUpDownDirection(int i) {
+        UpDownDirection = i;
+    }
+
+    int UpDownDirection=0;
     public static void main(String[] args) {
 
     }
@@ -40,15 +49,54 @@ public class Chandrayaan3 {
     }
 
     public void move(char command) {
-        if(command == 'f')
-            setXCoordinate(getXCoordinate() + 1);
-        else if(command == 'b')
-            setXCoordinate(getXCoordinate() - 1);
+        int currentDirection = getDirection();
+//        Up
+        if(getUpDownDirection() == 2){
+            if(command == 'f')
+                setZCoordinate(getZCoordinate() + 1);
+            else if(command == 'b')
+                setZCoordinate(getZCoordinate() - 1);
+        }
+//        Down
+        else if(getUpDownDirection() == -2){
+            if(command == 'f')
+                setZCoordinate(getZCoordinate() - 1);
+            else if(command == 'b')
+                setZCoordinate(getZCoordinate() + 1);
+        }
+//        North
+        else if(currentDirection == 0 && getUpDownDirection()==0){
+            if(command == 'f')
+                setYCoordinate(getYCoordinate() + 1);
+            else if(command == 'b')
+                setYCoordinate(getYCoordinate() - 1);
+        }
+//        East
+        else if(currentDirection == 1 && getUpDownDirection()==0){
+            if(command == 'f')
+                setXCoordinate(getXCoordinate() + 1);
+            else if(command == 'b')
+                setXCoordinate(getXCoordinate() - 1);
+        }
+//        South
+        else if(currentDirection == 2 && getUpDownDirection()==0){
+            if(command == 'f')
+                setYCoordinate(getYCoordinate() - 1);
+            else if(command == 'b')
+                setYCoordinate(getYCoordinate() + 1);
+        }
+//        West
+        else if(currentDirection == 3 && getUpDownDirection()==0){
+            if(command == 'f')
+                setXCoordinate(getXCoordinate() - 1);
+            else if(command == 'b')
+                setXCoordinate(getXCoordinate() + 1);
+        }
     }
 
     public char turn(char command) {
         char[] directions = {'N','E','S','W'};
-        List<Character> commands = List.of('f','b','l','r','u','d');
+        List<Character> commands = List.of('l','r','u','d');
 
         int currentDirection = getDirection();
         int size = 4;
@@ -62,9 +110,11 @@ public class Chandrayaan3 {
             newDirection = (currentDirection + 1) % size;
         }
         else if(command == 'u'){
+            setUpDownDirection(2);
             return 'U';
         }
         else if(command == 'd'){
+            setUpDownDirection(-2);
             return 'D';
         }
 
